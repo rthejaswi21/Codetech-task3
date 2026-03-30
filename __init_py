@@ -1,35 +1,14 @@
-import requests
+# Import and expose the main functions from each module
+from .port_scanner import scan_ports
+from .brute_forcer import brute_force_login
+from .vulnerability_scanner import test_sql_injection, test_xss
+from .utils import is_valid_ip
 
-from typing import List, Optional, Tuple
-
-
-
-def brute_force_login(url: str, username: str, password_list: List[str]) -> Optional[Tuple[str, str]]:
-
-    """
-
-    Perform a brute-force attack on a login page.
-
-    
-
-    :param url: URL of the login page.
-
-    :param username: Username to test.
-
-    :param password_list: List of passwords to try.
-
-    :return: Tuple of (username, password) if successful, else None.
-
-    """
-
-    for password in password_list:
-
-        data = {'username': username, 'password': password}
-
-        response = requests.post(url, data=data)
-
-        if "Login failed" not in response.text:
-
-            return (username, password)
-
-    return None
+# Define what gets imported with `from toolkit import *`
+__all__ = [
+    "scan_ports",
+    "brute_force_login",
+    "test_sql_injection",
+    "test_xss",
+    "is_valid_ip",
+]
